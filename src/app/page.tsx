@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useCartStore } from "./store/useCartStore";
+// import axios from "axios";
 
-// Helper function to format price
 const formatPrice = (price: number) => {
   return price.toLocaleString("en-US", {
     style: "currency",
@@ -14,25 +14,26 @@ const formatPrice = (price: number) => {
 const HomePage: React.FC = () => {
   const products = [
     {
-      id: 1,
+      id: "price_1Q57v2ING6PDgphPtyyoWLZb",
       name: "Product 1",
-      price: 100,
+      price: 4.99,
       description: "High-quality product.",
     },
     {
-      id: 2,
+      id: "price_1Q57xUING6PDgphPbm6duDjh",
       name: "Product 2",
-      price: 200,
+      price: 5.0,
       description: "Limited edition item.",
     },
     {
-      id: 3,
+      id: "prod_Qx23N1EDqJpiAa",
       name: "Product 3",
-      price: 300,
+      price: 5.0,
       description: "Best seller of the month.",
     },
   ];
 
+  // const cart = useCartStore((state) => state.cart);
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
@@ -62,6 +63,14 @@ const HomePage: React.FC = () => {
           </div>
         ))}
       </div>
+      {/* <div className="flex justify-center mt-8">
+        <button
+          className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:ring-4 focus:ring-green-300 transition-all duration-300 ease-in-out"
+          onClick={handleCheckout}
+        >
+          Proceed to Checkout
+        </button>
+      </div> */}
     </div>
   );
 };

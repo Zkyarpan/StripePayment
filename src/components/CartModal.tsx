@@ -1,5 +1,6 @@
 import React from "react";
 import { useCartStore } from "@/app/store/useCartStore";
+import axios from "axios";
 
 // Helper function to format prices
 const formatPrice = (price: number) => {
@@ -15,6 +16,21 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 }) => {
   const cart = useCartStore((state) => state.cart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
+
+  const handleCheckout = async () => {
+    try {
+      const response = await axios.post("http://localhost:5300/checkout", {
+        items: cart.map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+        })),
+      });
+
+      window.location.href = response.data.url; // Redirects to Stripe checkout page
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -62,7 +78,7 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         <div className="mt-6">
           <button
             className="bg-blue-500 text-white px-4 py-2 w-full rounded-lg hover:bg-blue-600 transition-all duration-300"
-            onClick={() => alert("Proceed to checkout")} // Checkout action
+            onClick={handleCheckout}
           >
             Checkout
           </button>

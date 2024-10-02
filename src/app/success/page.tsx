@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"; // Import Link from next/link
 
 const Success = () => {
   return (
@@ -11,9 +12,11 @@ const Success = () => {
           Thank you for your payment. Your transaction has been completed
           successfully.
         </p>
-        <button className="mt-4 bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">
-          Go to Dashboard
-        </button>
+        <Link href="/" passHref>
+          <button className="mt-4 bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">
+            Go to Dashboard
+          </button>
+        </Link>
       </div>
     </div>
   );
