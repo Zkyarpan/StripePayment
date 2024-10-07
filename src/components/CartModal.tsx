@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { useCartStore } from "@/app/store/useCartStore";
@@ -26,20 +26,25 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     setError(""); // Reset any previous errors
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-        items: cart.map((item) => ({
-          id: item.id,
-          quantity: item.quantity,
-        })),
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
+        {
+          items: cart.map((item) => ({
+            id: item.id,
+            quantity: item.quantity,
+          })),
+        }
+      );
 
       // Redirect to Stripe checkout page
       window.location.href = response.data.url;
     } catch (error) {
-      setError("There was an error processing your checkout. Please try again.");
+      setError(
+        "There was an error processing your checkout. Please try again."
+      );
       console.error("Error during checkout:", error);
     } finally {
-      setLoading(false); // Set loading to false
+      setLoading(false); 
     }
   };
 
@@ -55,11 +60,16 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
           <>
             <ul className="divide-y divide-gray-200">
               {cart.map((item) => (
-                <li key={item.id} className="flex justify-between items-center py-4">
+                <li
+                  key={item.id}
+                  className="flex justify-between items-center py-4"
+                >
                   <div>
                     <span className="font-semibold">{item.name}</span>
                     <br />
-                    <span className="text-sm text-gray-600">Quantity: {item.quantity}</span>
+                    <span className="text-sm text-gray-600">
+                      Quantity: {item.quantity}
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <span>{formatPrice(item.price * item.quantity)}</span>
@@ -78,7 +88,9 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
               {error && <p className="text-red-500 mb-4">{error}</p>}
               <button
                 className={`bg-blue-500 text-white px-4 py-2 w-full rounded-lg transition-all duration-300 ${
-                  loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+                  loading
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-blue-600"
                 }`}
                 onClick={handleCheckout}
                 disabled={loading}
