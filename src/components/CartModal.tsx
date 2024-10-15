@@ -44,7 +44,7 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
       );
       console.error("Error during checkout:", error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
