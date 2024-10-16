@@ -51,30 +51,39 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
-      <div className="bg-white p-8 rounded-lg w-96 shadow-lg">
-        <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+    <div className="fixed inset-0 bg-gradient-to-r from-black via-gray-900 to-black bg-opacity-80 flex justify-center items-center z-10">
+      <div className="bg-white p-8 rounded-2xl w-96 shadow-2xl transform transition-transform duration-300 scale-100 hover:scale-105">
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-6">
+          Your Cart
+        </h2>
+
         {cart.length === 0 ? (
-          <p>Your cart is currently empty.</p>
+          <p className="text-gray-600 text-center">
+            Your cart is currently empty.
+          </p>
         ) : (
           <>
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y divide-gray-300">
               {cart.map((item) => (
                 <li
                   key={item.id}
-                  className="flex justify-between items-center py-4"
+                  className="flex justify-between items-center py-4 hover:bg-gray-50 transition-all"
                 >
                   <div>
-                    <span className="font-semibold">{item.name}</span>
+                    <span className="font-semibold text-lg text-gray-700">
+                      {item.name}
+                    </span>
                     <br />
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-500">
                       Quantity: {item.quantity}
                     </span>
                   </div>
-                  <div className="flex items-center">
-                    <span>{formatPrice(item.price * item.quantity)}</span>
+                  <div className="flex items-center space-x-4">
+                    <span className="font-semibold text-gray-700">
+                      {formatPrice(item.price * item.quantity)}
+                    </span>
                     <button
-                      className="bg-red-500 text-white px-3 py-1 ml-4 rounded-lg"
+                      className="bg-red-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-red-600 transition-all duration-300"
                       onClick={() => removeFromCart(item.id)}
                     >
                       Remove
@@ -87,10 +96,10 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
             <div className="mt-6">
               {error && <p className="text-red-500 mb-4">{error}</p>}
               <button
-                className={`bg-blue-500 text-white px-4 py-2 w-full rounded-lg transition-all duration-300 ${
+                className={`bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold px-4 py-2 w-full rounded-full shadow-lg transition-all duration-300 transform ${
                   loading
                     ? "opacity-50 cursor-not-allowed"
-                    : "hover:bg-blue-600"
+                    : "hover:scale-105 hover:bg-blue-700"
                 }`}
                 onClick={handleCheckout}
                 disabled={loading}
@@ -102,7 +111,7 @@ const CartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         )}
 
         <button
-          className="bg-gray-500 text-white px-4 py-2 w-full mt-4 rounded-lg"
+          className="bg-gray-600 text-white font-medium px-4 py-2 w-full mt-4 rounded-full shadow-md hover:bg-gray-700 transition-all duration-300"
           onClick={onClose}
         >
           Close
